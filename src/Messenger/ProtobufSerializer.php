@@ -17,7 +17,7 @@ class ProtobufSerializer implements SerializerInterface
     {
         $body = $encodedEnvelope['body'];
         $headers = $encodedEnvelope['headers'];
-        $class = $headers['className'];
+        $class = str_replace('.', '\\', $headers['service']);
         if(!class_exists($class)) {
             throw new \Exception(sprintf('Class % not exists', $class));
         }
@@ -53,8 +53,7 @@ class ProtobufSerializer implements SerializerInterface
         return [
             'body' => $body,
             'headers' => [
-                'package' => str_replace('\\', '.', get_class($message)),
-                'className' => get_class($message),
+                'service' => str_replace('\\', '.', get_class($message)),
                 'stamps' => serialize($allStamps)
             ],
         ];

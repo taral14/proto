@@ -9,9 +9,6 @@ class CreateProjectHandler implements MessageHandlerInterface
 {
     public function __invoke(CreateProject $message)
     {
-        echo 'Exec command CreateProject';
-        echo PHP_EOL;
-        echo $message->getId() . ' ' . $message->getName();
-        echo PHP_EOL;
+        echo 'CreateProject message: ' . $message->getId() . ' ' . $message->getName() . PHP_EOL;
     }
 }
