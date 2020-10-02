@@ -1,0 +1,18 @@
+framework:
+    messenger:
+        # Uncomment this (and the failed transport below) to send failed messages to this transport for later handling.
+        # failure_transport: failed
+        buses:
+            messenger.bus.default:
+                middleware:
+                    - App\Messenger\AnalyticsMiddleware
+
+        transports:
+            async:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                serializer: App\Messenger\ProtobufSerializer
+            sync: 'sync://'
+
+        routing:
+            # Route your messages to the transports
+            'Message\Project\CreateProject': async

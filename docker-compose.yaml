@@ -1,0 +1,29 @@
+version: '3.1'
+
+services:
+
+  php-fpm:
+    build:
+      context: ./
+      dockerfile: ./docker/php-fpm/Dockerfile
+    ports:
+      - '9000:9000'
+    volumes:
+      - ./:/app
+    working_dir: /app
+    container_name: 'php-fpm'
+    environment:
+      MESSENGER_TRANSPORT_DSN: amqp://user:pass@rabbitmq:5672/rabbitmq/messages
+      APP_ENV: dev
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    hostname: rabbitmq
+    container_name: 'rabbitmq'
+    ports:
+      - '15672:15672'
+      - '5672:5672'
+    environment:
+      RABBITMQ_DEFAULT_USER: user
+      RABBITMQ_DEFAULT_PASS: pass
+      RABBITMQ_DEFAULT_VHOST: 'rabbitmq'

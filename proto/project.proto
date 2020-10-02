@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package Message.Project;
+
+message CreateProject {
+  string name = 1;
+  int32 id = 2;
+}
+
+service SearchService {
+  rpc Search(CreateProject) returns (CreateProject);
+}
