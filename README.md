@@ -3,16 +3,17 @@
 ```bash
 docker-compose up
 ```
-**2. Install dependencies**
+
+**2. Make protobuf files**
+
+```bash
+docker-compose exec php-fpm composer gen-proto
+```
+
+**3. Install dependencies**
 
 ```bash
 docker-compose exec php-fpm composer install
-```
-
-**3. Make protobuf files**
-
-```bash
-docker-compose exec php-fpm gen-proto
 ```
 
 **Send message**
